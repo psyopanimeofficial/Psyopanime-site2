@@ -304,6 +304,13 @@ const App: React.FC = () => {
              
         {/* Subtle Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.6)_100%)]"></div>
+        
+        {/* v4 INDICATOR (Upper Right) */}
+        <div className="absolute top-6 right-6 z-50 pointer-events-auto">
+          <div className="font-mono text-[10px] font-bold tracking-[0.3em] text-white/50 border border-white/20 px-3 py-1 rounded bg-black/50 backdrop-blur">
+             v4.0
+          </div>
+        </div>
       </div>
 
       {/* 3D Scene Layer */}

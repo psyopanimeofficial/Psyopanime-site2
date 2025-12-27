@@ -39,38 +39,36 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       <div className="absolute inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]"></div>
       
       {/* Header Bar */}
-      <div className="flex justify-between items-center p-3 md:p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40">
-        <div className="flex items-center gap-2 md:gap-4 min-w-0">
+      <div className="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40 shrink-0">
+        <div className="flex items-center gap-4">
           <button 
             onClick={onBack}
-            className="group flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 border border-white/20 hover:border-red-500 hover:bg-red-500/10 hover:text-red-400 transition-all uppercase tracking-widest text-[10px] md:text-xs flex-shrink-0"
+            className="group flex items-center gap-2 px-4 py-2 border border-white/20 hover:border-red-500 hover:bg-red-500/10 hover:text-red-400 transition-all uppercase tracking-widest text-xs"
           >
             <span className="group-hover:-translate-x-1 transition-transform">«</span>
-            <span className="hidden sm:inline">System_Return</span>
-            <span className="sm:hidden">Back</span>
+            System_Return
           </button>
-          <div className="h-4 w-px bg-white/20 flex-shrink-0"></div>
-          <span className="text-[9px] md:text-xs text-gray-500 tracking-[0.2em] truncate">BROADCAST_MODE // {sourceType}</span>
+          <div className="h-4 w-px bg-white/20"></div>
+          <span className="text-xs text-gray-500 tracking-[0.2em]">BROADCAST_MODE // {sourceType}</span>
         </div>
         
         {/* Source Switcher */}
-        <div className="flex items-center bg-black border border-white/20 rounded-lg p-0.5 md:p-1 flex-shrink-0">
+        <div className="flex items-center bg-black border border-white/20 rounded-lg p-1">
             <button 
               onClick={() => setSourceType('STREAM')}
-              className={`px-2 md:px-3 py-1 text-[9px] md:text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'STREAM' ? 'bg-red-600 text-white' : 'text-gray-500 hover:text-white'}`}
+              className={`px-3 py-1 text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'STREAM' ? 'bg-red-600 text-white' : 'text-gray-500 hover:text-white'}`}
             >
               Stream
             </button>
             <button 
               onClick={() => setSourceType('LOCAL')}
-              className={`px-2 md:px-3 py-1 text-[9px] md:text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'LOCAL' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+              className={`px-3 py-1 text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'LOCAL' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
             >
-              <span className="hidden sm:inline">Direct/Local</span>
-              <span className="sm:hidden">Local</span>
+              Direct/Local
             </button>
         </div>
 
-        <div className="hidden lg:flex gap-2 flex-shrink-0">
+        <div className="hidden md:flex gap-2">
            <div className="w-2 h-2 bg-red-500 animate-pulse rounded-full"></div>
            <span className="text-xs text-red-500 font-bold tracking-widest">LIVE SIGNAL</span>
         </div>
@@ -79,13 +77,18 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       {/* Main Content Grid */}
       <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
         
-        {/* Video Area (Dominant) */}
-        <div className="flex-1 relative bg-black flex items-center justify-center p-6 md:p-12 border-r border-white/5">
+        {/* Video Area */}
+        {/* 
+            Mobile Fix: Removed flex-1 to prevent it from growing and pushing sidebar out.
+            Added shrink-0 so it doesn't compress.
+            On desktop, md:flex-1 allows it to take available width.
+        */}
+        <div className="w-full md:flex-1 shrink-0 relative bg-black flex items-center justify-center p-4 md:p-12 border-r border-white/5">
           {/* Decorative Corners */}
-          <div className="absolute top-4 left-4 md:top-8 md:left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
-          <div className="absolute top-4 right-4 md:top-8 md:right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
-          <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 w-4 h-4 border-b-2 border-l-2 border-white/30"></div>
-          <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 w-4 h-4 border-b-2 border-r-2 border-white/30"></div>
+          <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
+          <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
+          <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-white/30"></div>
+          <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-white/30"></div>
 
           <div className="relative w-full max-w-5xl aspect-video shadow-[0_0_50px_rgba(255,0,80,0.15)] bg-gray-900 border border-white/10 overflow-hidden flex flex-col justify-center">
             
@@ -138,7 +141,11 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
+        {/* 
+            Mobile Fix: Added flex-1 so it takes remaining vertical height.
+            md:flex-none to keep fixed width on desktop.
+        */}
+        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-hidden">
           
           {/* Block 1: Title */}
           <div className="flex-shrink-0">
@@ -150,11 +157,11 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
           {/* Block 2: Playlist */}
-          <div className="flex-shrink-0">
+          <div className="flex-1 overflow-y-auto min-h-0">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
               Next_Up.queue
             </h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 pr-2">
               {PLAYLIST.map((video, i) => {
                 const isActive = currentVideo.id === video.id;
                 return (
