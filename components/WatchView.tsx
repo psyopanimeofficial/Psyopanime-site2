@@ -7,18 +7,17 @@ interface WatchViewProps {
 type VideoSource = 'STREAM' | 'LOCAL';
 
 const PLAYLIST = [
-  { id: "FMJCfUhoV0c", title: "What is PSYOP?", duration: "04:12" },
-  { id: "BnBj8sRUu6o", title: "WE ARE PSYOP", duration: "03:45" },
-  { id: "iLNypgG-X8k", title: "The Network State", duration: "02:30" },
-  { id: "O3OBtF67MY0", title: "Network Spirituality", duration: "03:15" },
-  { id: "69oB50L7euw", title: "Milady Maker", duration: "05:00" },
-  { id: "9hlx5Rslrzk", title: "Remilia Corporation", duration: "03:22" }
+  { id: "FMJCfUhoV0c", title: "PSYOPQUEEN", duration: "04:12" },
+  { id: "BnBj8sRUu6o", title: "NARRATIVE WAR Trailer", duration: "03:45" },
+  { id: "iLNypgG-X8k", title: "ENEMIES OF DISCLOSURE", duration: "02:30" },
+  { id: "O3OBtF67MY0", title: "INSERT (1)COIN", duration: "03:15" },
+  { id: "69oB50L7euw", title: "WWIII", duration: "05:00" },
+  { id: "9hlx5Rslrzk", title: "MAXIMUM CARNAGE TECH DEMO", duration: "03:22" }
 ];
 
 const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
   const [sourceType, setSourceType] = useState<VideoSource>('STREAM');
   const [currentVideo, setCurrentVideo] = useState(PLAYLIST[0]);
-  const [customId, setCustomId] = useState('');
   const [localUrl, setLocalUrl] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -31,31 +30,8 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
     }
   };
 
-  const handleCustomIdSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (customId.trim()) {
-      // Extract ID from URL if full URL is pasted
-      let id = customId;
-      try {
-        if (id.includes('youtube.com') || id.includes('youtu.be')) {
-          const url = new URL(id);
-          if (url.searchParams.has('v')) {
-            id = url.searchParams.get('v') || id;
-          } else {
-             // Handle short links
-             id = url.pathname.slice(1);
-          }
-        }
-      } catch (err) {
-        // ignore
-      }
-      setCurrentVideo({ id: id, title: "CUSTOM_SIGNAL", duration: "UNK" });
-      setCustomId('');
-    }
-  };
-
-  // Standard clean embed URL
-  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&rel=0&controls=1&playsinline=1`;
+  // Standard clean embed URL - unmuted by default
+  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&rel=0&controls=1&playsinline=1`;
 
   return (
     <div className="absolute inset-0 z-50 flex flex-col bg-black/95 text-white overflow-hidden font-mono">
@@ -63,51 +39,53 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       <div className="absolute inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]"></div>
       
       {/* Header Bar */}
-      <div className="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40">
-        <div className="flex items-center gap-4">
+      <div className="flex justify-between items-center p-3 md:p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40">
+        <div className="flex items-center gap-2 md:gap-4 min-w-0">
           <button 
             onClick={onBack}
-            className="group flex items-center gap-2 px-4 py-2 border border-white/20 hover:border-red-500 hover:bg-red-500/10 hover:text-red-400 transition-all uppercase tracking-widest text-xs"
+            className="group flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 border border-white/20 hover:border-red-500 hover:bg-red-500/10 hover:text-red-400 transition-all uppercase tracking-widest text-[10px] md:text-xs flex-shrink-0"
           >
             <span className="group-hover:-translate-x-1 transition-transform">«</span>
-            System_Return
+            <span className="hidden sm:inline">System_Return</span>
+            <span className="sm:hidden">Back</span>
           </button>
-          <div className="h-4 w-px bg-white/20"></div>
-          <span className="text-xs text-gray-500 tracking-[0.2em]">BROADCAST_MODE // {sourceType}</span>
+          <div className="h-4 w-px bg-white/20 flex-shrink-0"></div>
+          <span className="text-[9px] md:text-xs text-gray-500 tracking-[0.2em] truncate">BROADCAST_MODE // {sourceType}</span>
         </div>
         
         {/* Source Switcher */}
-        <div className="flex items-center bg-black border border-white/20 rounded-lg p-1">
+        <div className="flex items-center bg-black border border-white/20 rounded-lg p-0.5 md:p-1 flex-shrink-0">
             <button 
               onClick={() => setSourceType('STREAM')}
-              className={`px-3 py-1 text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'STREAM' ? 'bg-red-600 text-white' : 'text-gray-500 hover:text-white'}`}
+              className={`px-2 md:px-3 py-1 text-[9px] md:text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'STREAM' ? 'bg-red-600 text-white' : 'text-gray-500 hover:text-white'}`}
             >
               Stream
             </button>
             <button 
               onClick={() => setSourceType('LOCAL')}
-              className={`px-3 py-1 text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'LOCAL' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+              className={`px-2 md:px-3 py-1 text-[9px] md:text-[10px] uppercase tracking-wider rounded transition-colors ${sourceType === 'LOCAL' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
             >
-              Direct/Local
+              <span className="hidden sm:inline">Direct/Local</span>
+              <span className="sm:hidden">Local</span>
             </button>
         </div>
 
-        <div className="hidden md:flex gap-2">
+        <div className="hidden lg:flex gap-2 flex-shrink-0">
            <div className="w-2 h-2 bg-red-500 animate-pulse rounded-full"></div>
            <span className="text-xs text-red-500 font-bold tracking-widest">LIVE SIGNAL</span>
         </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 flex flex-col md:flex-row relative z-30">
+      <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
         
         {/* Video Area (Dominant) */}
-        <div className="flex-1 relative bg-black flex items-center justify-center p-4 md:p-12 border-r border-white/5">
+        <div className="flex-1 relative bg-black flex items-center justify-center p-6 md:p-12 border-r border-white/5">
           {/* Decorative Corners */}
-          <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
-          <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
-          <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-white/30"></div>
-          <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-white/30"></div>
+          <div className="absolute top-4 left-4 md:top-8 md:left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
+          <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 w-4 h-4 border-b-2 border-l-2 border-white/30"></div>
+          <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 w-4 h-4 border-b-2 border-r-2 border-white/30"></div>
 
           <div className="relative w-full max-w-5xl aspect-video shadow-[0_0_50px_rgba(255,0,80,0.15)] bg-gray-900 border border-white/10 overflow-hidden flex flex-col justify-center">
             
@@ -163,7 +141,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
           
           {/* Block 1: Title */}
-          <div>
+          <div className="flex-shrink-0">
             <h2 className="text-2xl font-bold font-sans tracking-tighter mb-1 text-white">PSYOP_RADIO</h2>
             <div className="w-full h-1 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
             <p className="text-xs text-gray-400 font-mono leading-relaxed">
@@ -171,24 +149,8 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
             </p>
           </div>
 
-           {/* Manual Input */}
-           <div className="bg-white/5 p-3 border border-white/10">
-              <form onSubmit={handleCustomIdSubmit} className="flex gap-2">
-                <input 
-                  type="text"
-                  placeholder="Paste YouTube ID..."
-                  value={customId}
-                  onChange={(e) => setCustomId(e.target.value)}
-                  className="w-full bg-black/50 border border-white/20 px-2 py-1 text-xs text-white focus:border-red-500 outline-none placeholder-gray-600 font-mono"
-                />
-                <button type="submit" className="text-red-500 hover:text-white px-2">
-                   →
-                </button>
-              </form>
-           </div>
-
           {/* Block 2: Playlist */}
-          <div className="flex-1">
+          <div className="flex-shrink-0">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
               Next_Up.queue
             </h3>
@@ -234,7 +196,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
           {/* Block 3: Footer Status */}
-          <div className="mt-auto pt-6 border-t border-white/10">
+          <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
              <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
                <div className="flex flex-col gap-1">
                  <span>LAT: 34.0522 N</span>
