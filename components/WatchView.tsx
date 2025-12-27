@@ -18,7 +18,6 @@ const PLAYLIST = [
 const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
   const [sourceType, setSourceType] = useState<VideoSource>('STREAM');
   const [currentVideo, setCurrentVideo] = useState(PLAYLIST[0]);
-  const [customId, setCustomId] = useState('');
   const [localUrl, setLocalUrl] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,29 +27,6 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
     if (file) {
       const url = URL.createObjectURL(file);
       setLocalUrl(url);
-    }
-  };
-
-  const handleCustomIdSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (customId.trim()) {
-      // Extract ID from URL if full URL is pasted
-      let id = customId;
-      try {
-        if (id.includes('youtube.com') || id.includes('youtu.be')) {
-          const url = new URL(id);
-          if (url.searchParams.has('v')) {
-            id = url.searchParams.get('v') || id;
-          } else {
-             // Handle short links
-             id = url.pathname.slice(1);
-          }
-        }
-      } catch (err) {
-        // ignore
-      }
-      setCurrentVideo({ id: id, title: "CUSTOM_SIGNAL", duration: "UNK" });
-      setCustomId('');
     }
   };
 
@@ -171,22 +147,6 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
             </p>
           </div>
 
-           {/* Manual Input */}
-           <div className="bg-white/5 p-3 border border-white/10 flex-shrink-0">
-              <form onSubmit={handleCustomIdSubmit} className="flex gap-2">
-                <input 
-                  type="text"
-                  placeholder="Paste YouTube ID..."
-                  value={customId}
-                  onChange={(e) => setCustomId(e.target.value)}
-                  className="w-full bg-black/50 border border-white/20 px-2 py-1 text-xs text-white focus:border-red-500 outline-none placeholder-gray-600 font-mono"
-                />
-                <button type="submit" className="text-red-500 hover:text-white px-2">
-                   →
-                </button>
-              </form>
-           </div>
-
           {/* Block 2: Playlist */}
           <div className="flex-1 overflow-y-auto min-h-0">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
@@ -254,3 +214,4 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
 };
 
 export default WatchView;
+
