@@ -7,12 +7,12 @@ interface WatchViewProps {
 type VideoSource = 'STREAM' | 'LOCAL';
 
 const PLAYLIST = [
-  { id: "FMJCfUhoV0c", title: "PSYOPQUEEN", duration: "04:12" },
-  { id: "BnBj8sRUu6o", title: "NARRATIVE WAR Trailer", duration: "03:45" },
-  { id: "iLNypgG-X8k", title: "ENEMIES OF DISCLOSURE", duration: "02:30" },
-  { id: "O3OBtF67MY0", title: "INSERT (1)COIN", duration: "03:15" },
-  { id: "69oB50L7euw", title: "WWIII", duration: "05:00" },
-  { id: "9hlx5Rslrzk", title: "MAXIMUM CARNAGE TECH DEMO", duration: "03:22" }
+  { id: "FMJCfUhoV0c", title: "What is PSYOP?", duration: "04:12" },
+  { id: "BnBj8sRUu6o", title: "WE ARE PSYOP", duration: "03:45" },
+  { id: "iLNypgG-X8k", title: "The Network State", duration: "02:30" },
+  { id: "O3OBtF67MY0", title: "Network Spirituality", duration: "03:15" },
+  { id: "69oB50L7euw", title: "Milady Maker", duration: "05:00" },
+  { id: "9hlx5Rslrzk", title: "Remilia Corporation", duration: "03:22" }
 ];
 
 const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
@@ -55,7 +55,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
   };
 
   // Standard clean embed URL
-  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=0&rel=0&controls=1&playsinline=1`;
+  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&rel=0&controls=1&playsinline=1`;
 
   return (
     <div className="absolute inset-0 z-50 flex flex-col bg-black/95 text-white overflow-hidden font-mono">
