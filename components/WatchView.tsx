@@ -138,9 +138,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl flex flex-col min-h-0">
+        {/* Main scroll container on the sidebar wrapper itself */}
+        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl overflow-y-auto flex flex-col">
           
-          {/* Block 1: Fixed Title */}
+          {/* Block 1: Title (Scrolls with content) */}
           <div className="flex-shrink-0 p-6 pb-2 border-b border-white/5">
             <h2 className="text-2xl font-bold font-sans tracking-tighter mb-1 text-white">PSYOP_RADIO</h2>
             <div className="w-full h-1 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
@@ -149,8 +150,8 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
             </p>
           </div>
 
-          {/* Block 2: Scrollable Playlist & Footer */}
-          <div className="flex-1 overflow-y-auto p-6 pt-4 flex flex-col gap-6">
+          {/* Block 2: Playlist & Footer */}
+          <div className="flex-1 p-6 pt-4 flex flex-col gap-6">
             <div className="flex-shrink-0">
                 <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
                 Next_Up.queue
@@ -196,7 +197,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
                 </div>
             </div>
 
-            {/* Block 3: Footer Status */}
+            {/* Block 3: Footer Status (At bottom of scroll if content short, or below content if long) */}
             <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
                 <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
                 <div className="flex flex-col gap-1">
