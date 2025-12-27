@@ -136,7 +136,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-hidden">
+        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
           
           {/* Block 1: Title */}
           <div className="flex-shrink-0">
@@ -148,11 +148,11 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
           {/* Block 2: Playlist */}
-          <div className="flex-1 overflow-y-auto min-h-0">
+          <div className="flex-shrink-0">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
               Next_Up.queue
             </h3>
-            <div className="flex flex-col gap-3 pr-2">
+            <div className="flex flex-col gap-3">
               {PLAYLIST.map((video, i) => {
                 const isActive = currentVideo.id === video.id;
                 return (
@@ -214,4 +214,3 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
 };
 
 export default WatchView;
-
