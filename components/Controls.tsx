@@ -39,37 +39,45 @@ const Controls: React.FC<ControlsProps> = ({
   return (
     <>
       {/* Top Header - Logo and Audio Toggle */}
-      <header className="absolute top-0 left-0 right-0 z-40 px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+      <header className="absolute top-0 left-0 right-0 z-40 px-4 md:px-8 py-4 md:py-6 flex items-start justify-between">
         {/* Logo */}
         <div className="flex items-center flex-shrink-0">
           <img 
-            src="/logo.png" 
+            src="https://i.imgur.com/ChM6TPY.png" 
             alt="PSYOPANIME" 
-            className="w-16 md:w-24 h-auto object-contain"
+            className="w-20 md:w-28 h-auto object-contain"
           />
         </div>
         
-        {/* Audio Toggle */}
-        <button
-          onClick={onToggleMute}
-          className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 border border-white/30 rounded-lg bg-black/30 backdrop-blur-sm hover:bg-white/10 transition-all group flex-shrink-0"
-        >
-          <span className="text-xs md:text-sm font-mono tracking-wider text-green-400 font-bold">
-            AUDIO {isMuted ? 'OFF' : 'ON'}
-          </span>
-          <svg 
-            className="w-4 h-4 md:w-5 md:h-5 text-white/70 group-hover:text-white transition-colors" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+        {/* Right Side - Version and Audio Toggle Stacked */}
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          {/* Version Indicator */}
+          <div className="font-mono text-[10px] font-bold tracking-[0.3em] text-white/50 border border-white/20 px-3 py-1 rounded bg-black/50 backdrop-blur">
+            v4.0
+          </div>
+          
+          {/* Audio Toggle */}
+          <button
+            onClick={onToggleMute}
+            className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 border border-white/30 rounded-lg bg-black/30 backdrop-blur-sm hover:bg-white/10 transition-all group"
           >
-            {isMuted ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-            )}
-          </svg>
-        </button>
+            <span className="text-xs md:text-sm font-mono tracking-wider text-green-400 font-bold">
+              AUDIO {isMuted ? 'OFF' : 'ON'}
+            </span>
+            <svg 
+              className="w-4 h-4 md:w-5 md:h-5 text-white/70 group-hover:text-white transition-colors" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              {isMuted ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              )}
+            </svg>
+          </button>
+        </div>
       </header>
 
       {/* Navigation Menu */}
@@ -178,3 +186,4 @@ const Controls: React.FC<ControlsProps> = ({
 };
 
 export default Controls;
+
