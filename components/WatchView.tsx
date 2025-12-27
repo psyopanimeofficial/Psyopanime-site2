@@ -7,17 +7,18 @@ interface WatchViewProps {
 type VideoSource = 'STREAM' | 'LOCAL';
 
 const PLAYLIST = [
-  { id: "FMJCfUhoV0c", title: "PSYOPQUEEN", duration: "04:12" },
-  { id: "BnBj8sRUu6o", title: "NARRATIVE WAR Trailer", duration: "03:45" },
-  { id: "iLNypgG-X8k", title: "ENEMIES OF DISCLOSURE", duration: "02:30" },
-  { id: "O3OBtF67MY0", title: "INSERT (1)COIN", duration: "03:15" },
-  { id: "69oB50L7euw", title: "WWIII", duration: "05:00" },
-  { id: "9hlx5Rslrzk", title: "MAXIMUM CARNAGE TECH DEMO", duration: "03:22" }
+  { id: "FMJCfUhoV0c", title: "What is PSYOP?", duration: "04:12" },
+  { id: "BnBj8sRUu6o", title: "WE ARE PSYOP", duration: "03:45" },
+  { id: "iLNypgG-X8k", title: "The Network State", duration: "02:30" },
+  { id: "O3OBtF67MY0", title: "Network Spirituality", duration: "03:15" },
+  { id: "69oB50L7euw", title: "Milady Maker", duration: "05:00" },
+  { id: "9hlx5Rslrzk", title: "Remilia Corporation", duration: "03:22" }
 ];
 
 const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
   const [sourceType, setSourceType] = useState<VideoSource>('STREAM');
   const [currentVideo, setCurrentVideo] = useState(PLAYLIST[0]);
+  const [customId, setCustomId] = useState('');
   const [localUrl, setLocalUrl] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -30,8 +31,31 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
     }
   };
 
-  // Standard clean embed URL - unmuted by default
-  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&rel=0&controls=1&playsinline=1`;
+  const handleCustomIdSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (customId.trim()) {
+      // Extract ID from URL if full URL is pasted
+      let id = customId;
+      try {
+        if (id.includes('youtube.com') || id.includes('youtu.be')) {
+          const url = new URL(id);
+          if (url.searchParams.has('v')) {
+            id = url.searchParams.get('v') || id;
+          } else {
+             // Handle short links
+             id = url.pathname.slice(1);
+          }
+        }
+      } catch (err) {
+        // ignore
+      }
+      setCurrentVideo({ id: id, title: "CUSTOM_SIGNAL", duration: "UNK" });
+      setCustomId('');
+    }
+  };
+
+  // Standard clean embed URL
+  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&rel=0&controls=1&playsinline=1`;
 
   return (
     <div className="absolute inset-0 z-50 flex flex-col bg-black/95 text-white overflow-hidden font-mono">
@@ -39,7 +63,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       <div className="absolute inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]"></div>
       
       {/* Header Bar */}
-      <div className="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40 shrink-0">
+      <div className="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 backdrop-blur-md z-40">
         <div className="flex items-center gap-4">
           <button 
             onClick={onBack}
@@ -75,15 +99,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row relative z-30">
         
-        {/* Video Area */}
-        {/* 
-            Mobile Fix: Removed flex-1 to prevent it from growing and pushing sidebar out.
-            Added shrink-0 so it doesn't compress.
-            On desktop, md:flex-1 allows it to take available width.
-        */}
-        <div className="w-full md:flex-1 shrink-0 relative bg-black flex items-center justify-center p-4 md:p-12 border-r border-white/5">
+        {/* Video Area (Dominant) */}
+        <div className="flex-1 relative bg-black flex items-center justify-center p-4 md:p-12 border-r border-white/5">
           {/* Decorative Corners */}
           <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
           <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
@@ -141,14 +160,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        {/* 
-            Mobile Fix: Added flex-1 so it takes remaining vertical height.
-            md:flex-none to keep fixed width on desktop.
-        */}
-        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-hidden">
+        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
           
           {/* Block 1: Title */}
-          <div className="flex-shrink-0">
+          <div>
             <h2 className="text-2xl font-bold font-sans tracking-tighter mb-1 text-white">PSYOP_RADIO</h2>
             <div className="w-full h-1 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
             <p className="text-xs text-gray-400 font-mono leading-relaxed">
@@ -156,12 +171,28 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
             </p>
           </div>
 
+           {/* Manual Input */}
+           <div className="bg-white/5 p-3 border border-white/10">
+              <form onSubmit={handleCustomIdSubmit} className="flex gap-2">
+                <input 
+                  type="text"
+                  placeholder="Paste YouTube ID..."
+                  value={customId}
+                  onChange={(e) => setCustomId(e.target.value)}
+                  className="w-full bg-black/50 border border-white/20 px-2 py-1 text-xs text-white focus:border-red-500 outline-none placeholder-gray-600 font-mono"
+                />
+                <button type="submit" className="text-red-500 hover:text-white px-2">
+                   →
+                </button>
+              </form>
+           </div>
+
           {/* Block 2: Playlist */}
-          <div className="flex-1 overflow-y-auto min-h-0">
+          <div className="flex-1">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
               Next_Up.queue
             </h3>
-            <div className="flex flex-col gap-3 pr-2">
+            <div className="flex flex-col gap-3">
               {PLAYLIST.map((video, i) => {
                 const isActive = currentVideo.id === video.id;
                 return (
@@ -203,7 +234,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
           {/* Block 3: Footer Status */}
-          <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
+          <div className="mt-auto pt-6 border-t border-white/10">
              <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
                <div className="flex flex-col gap-1">
                  <span>LAT: 34.0522 N</span>
