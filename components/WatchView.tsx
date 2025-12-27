@@ -55,7 +55,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
   };
 
   // Standard clean embed URL
-  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&rel=0&controls=1&playsinline=1`;
+  const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=0&rel=0&controls=1&playsinline=1`;
 
   return (
     <div className="absolute inset-0 z-50 flex flex-col bg-black/95 text-white overflow-hidden font-mono">
