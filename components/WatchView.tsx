@@ -77,10 +77,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row relative z-30">
         
         {/* Video Area (Dominant) */}
-        <div className="flex-1 relative bg-black flex items-center justify-center p-6 md:p-12 border-r border-white/5">
+        <div className="flex-1 relative bg-black flex items-center justify-center p-6 md:p-12 border-r border-white/5 overflow-hidden">
           {/* Decorative Corners */}
           <div className="absolute top-4 left-4 md:top-8 md:left-8 w-4 h-4 border-t-2 border-l-2 border-white/30"></div>
           <div className="absolute top-4 right-4 md:top-8 md:right-8 w-4 h-4 border-t-2 border-r-2 border-white/30"></div>
@@ -138,7 +138,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
+        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto min-h-0">
           
           {/* Block 1: Title */}
           <div className="flex-shrink-0">
@@ -216,3 +216,4 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
 };
 
 export default WatchView;
+
