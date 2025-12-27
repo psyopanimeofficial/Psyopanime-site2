@@ -304,8 +304,7 @@ const App: React.FC = () => {
              
         {/* Subtle Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.6)_100%)]"></div>
-        
-    
+      </div>
 
       {/* 3D Scene Layer */}
       <Scene 
