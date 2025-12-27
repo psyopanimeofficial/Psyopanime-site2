@@ -7,6 +7,7 @@ import { extractColorsFromImage } from './utils/geometry';
 
 // Extended list of images for PsyopQueen.EXE using direct i.imgur.com links
 const PSYOP_QUEEN_IMAGES = [
+  "https://i.imgur.com/zgQPe5w.png", // Must be first
   "https://i.imgur.com/ChM6TPY.png",
   "https://i.imgur.com/e8F96Dq.png",
   "https://i.imgur.com/KNZK7Kt.png",
@@ -14,8 +15,6 @@ const PSYOP_QUEEN_IMAGES = [
   "https://i.imgur.com/MgwArGW.png",
   "https://i.imgur.com/B9F8hbq.png",
   "https://i.imgur.com/nclrLjH.png",
-  "https://i.imgur.com/zgQPe5w.png",
-  "https://i.imgur.com/LgEs5lN.png",
   "https://i.imgur.com/Ljw62BR.png",
   "https://i.imgur.com/wTqiwQA.png",
   "https://i.imgur.com/cHbhfLp.png",
@@ -25,12 +24,9 @@ const PSYOP_QUEEN_IMAGES = [
   "https://i.imgur.com/jfNOK4F.png",
   "https://i.imgur.com/UHf0CnK.png",
   "https://i.imgur.com/ciVUVGF.png",
-  "https://i.imgur.com/3QoobEA.png",
   "https://i.imgur.com/zx0zc3W.png",
   "https://i.imgur.com/blkRUig.png",
-  "https://i.imgur.com/KjYd0ZE.png",
   "https://i.imgur.com/RQ3IxJF.png",
-  "https://i.imgur.com/Pvw2u6Y.png",
   "https://i.imgur.com/tOxV8wV.png",
   "https://i.imgur.com/lZtB2UR.png",
   "https://i.imgur.com/gXm5RBH.png",
@@ -40,7 +36,6 @@ const PSYOP_QUEEN_IMAGES = [
   "https://i.imgur.com/YKOTTme.png",
   "https://i.imgur.com/1fI2LM5.png",
   "https://i.imgur.com/R50lohH.png",
-  "https://i.imgur.com/dpT1TS5.png",
   "https://i.imgur.com/dpT1TS5.png",
   "https://i.imgur.com/FckeYEp.png",
   "https://i.imgur.com/uViFmrg.png",
@@ -150,19 +145,14 @@ const App: React.FC = () => {
 
   const [expansionFactor, setExpansionFactor] = useState<number>(0.5); // Default 50%
   
-  const [customLogoUrl, setCustomLogoUrl] = useState<string | null>(null);
+  // Initialize with specific image as requested
+  const [customLogoUrl, setCustomLogoUrl] = useState<string | null>("https://i.imgur.com/zgQPe5w.png");
   
   // Audio State
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [wasMutedBeforeWatch, setWasMutedBeforeWatch] = useState<boolean>(false);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  // Initialize with a random image so AutoTone has something interesting to work with
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * PSYOP_QUEEN_IMAGES.length);
-    setCustomLogoUrl(PSYOP_QUEEN_IMAGES[randomIndex]);
-  }, []);
 
   // Handle Audio Auto-Play
   useEffect(() => {

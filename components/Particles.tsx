@@ -8,29 +8,6 @@ import {
   GeometryResult
 } from '../utils/geometry';
 
-// Fix for JSX.IntrinsicElements errors
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      points: any;
-      bufferGeometry: any;
-      bufferAttribute: any;
-      pointsMaterial: any;
-    }
-  }
-}
-
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      points: any;
-      bufferGeometry: any;
-      bufferAttribute: any;
-      pointsMaterial: any;
-    }
-  }
-}
-
 const PSYOP_LOGO_URL = "https://i.imgur.com/6TQT9vD.png"; 
 
 interface ParticlesProps {

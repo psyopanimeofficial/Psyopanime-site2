@@ -4,27 +4,6 @@ import { OrbitControls, Stars } from '@react-three/drei';
 import Particles from './Particles';
 import { ShapeType } from '../types';
 
-// Fix for JSX.IntrinsicElements errors
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      color: any;
-      ambientLight: any;
-      pointLight: any;
-    }
-  }
-}
-
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      color: any;
-      ambientLight: any;
-      pointLight: any;
-    }
-  }
-}
-
 interface SceneProps {
   shape: ShapeType;
   colors: string[];
