@@ -160,10 +160,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto max-h-[50vh] md:max-h-none">
+        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-hidden">
           
           {/* Block 1: Title */}
-          <div>
+          <div className="flex-shrink-0">
             <h2 className="text-2xl font-bold font-sans tracking-tighter mb-1 text-white">PSYOP_RADIO</h2>
             <div className="w-full h-1 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
             <p className="text-xs text-gray-400 font-mono leading-relaxed">
@@ -172,7 +172,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
            {/* Manual Input */}
-           <div className="bg-white/5 p-3 border border-white/10">
+           <div className="bg-white/5 p-3 border border-white/10 flex-shrink-0">
               <form onSubmit={handleCustomIdSubmit} className="flex gap-2">
                 <input 
                   type="text"
@@ -188,11 +188,11 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
            </div>
 
           {/* Block 2: Playlist */}
-          <div className="flex-1">
+          <div className="flex-1 overflow-y-auto min-h-0">
             <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
               Next_Up.queue
             </h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 pr-2">
               {PLAYLIST.map((video, i) => {
                 const isActive = currentVideo.id === video.id;
                 return (
@@ -234,7 +234,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
           </div>
 
           {/* Block 3: Footer Status */}
-          <div className="mt-auto pt-6 border-t border-white/10">
+          <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
              <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
                <div className="flex flex-col gap-1">
                  <span>LAT: 34.0522 N</span>
