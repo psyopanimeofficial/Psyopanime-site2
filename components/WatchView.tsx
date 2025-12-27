@@ -7,12 +7,12 @@ interface WatchViewProps {
 type VideoSource = 'STREAM' | 'LOCAL';
 
 const PLAYLIST = [
-  { id: "FMJCfUhoV0c", title: "What is PSYOP?", duration: "04:12" },
-  { id: "BnBj8sRUu6o", title: "WE ARE PSYOP", duration: "03:45" },
-  { id: "iLNypgG-X8k", title: "The Network State", duration: "02:30" },
-  { id: "O3OBtF67MY0", title: "Network Spirituality", duration: "03:15" },
-  { id: "69oB50L7euw", title: "Milady Maker", duration: "05:00" },
-  { id: "9hlx5Rslrzk", title: "Remilia Corporation", duration: "03:22" }
+  { id: "FMJCfUhoV0c", title: "PSYOPQUEEN", duration: "04:12" },
+  { id: "BnBj8sRUu6o", title: "NARRATIVE WAR Trailer", duration: "03:45" },
+  { id: "iLNypgG-X8k", title: "ENEMIES OF DISCLOSURE", duration: "02:30" },
+  { id: "O3OBtF67MY0", title: "INSERT (1)COIN", duration: "03:15" },
+  { id: "69oB50L7euw", title: "WWIII", duration: "05:00" },
+  { id: "9hlx5Rslrzk", title: "MAXIMUM CARNAGE TECH DEMO", duration: "03:22" }
 ];
 
 const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
@@ -54,7 +54,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
     }
   };
 
-  // Standard clean embed URL
+  // Standard clean embed URL - unmuted by default
   const embedUrl = `https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&rel=0&controls=1&playsinline=1`;
 
   return (
@@ -99,7 +99,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 flex flex-col md:flex-row relative z-30">
+      <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
         
         {/* Video Area (Dominant) */}
         <div className="flex-1 relative bg-black flex items-center justify-center p-4 md:p-12 border-r border-white/5">
@@ -160,7 +160,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto">
+        <div className="w-full md:w-80 border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto max-h-[50vh] md:max-h-none">
           
           {/* Block 1: Title */}
           <div>
