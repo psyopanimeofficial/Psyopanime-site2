@@ -77,7 +77,7 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="flex-1 flex flex-col md:flex-row relative z-30">
+      <div className="flex-1 flex flex-col md:flex-row relative z-30 overflow-hidden">
         
         {/* Video Area (Dominant) */}
         <div className="w-full md:flex-1 shrink-0 relative bg-black flex items-center justify-center p-6 md:p-12 border-r border-white/5 overflow-hidden">
@@ -138,10 +138,10 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
         </div>
 
         {/* Sidebar / Data Panel (Cyberpunk Aesthetic) */}
-        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-8 overflow-y-auto min-h-0">
+        <div className="w-full md:w-80 flex-1 md:flex-none border-l border-white/10 bg-black/80 backdrop-blur-xl flex flex-col min-h-0">
           
-          {/* Block 1: Title */}
-          <div className="flex-shrink-0">
+          {/* Block 1: Fixed Title */}
+          <div className="flex-shrink-0 p-6 pb-2 border-b border-white/5">
             <h2 className="text-2xl font-bold font-sans tracking-tighter mb-1 text-white">PSYOP_RADIO</h2>
             <div className="w-full h-1 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
             <p className="text-xs text-gray-400 font-mono leading-relaxed">
@@ -149,64 +149,66 @@ const WatchView: React.FC<WatchViewProps> = ({ onBack }) => {
             </p>
           </div>
 
-          {/* Block 2: Playlist */}
-          <div className="flex-shrink-0">
-            <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
-              Next_Up.queue
-            </h3>
-            <div className="flex flex-col gap-3">
-              {PLAYLIST.map((video, i) => {
-                const isActive = currentVideo.id === video.id;
-                return (
-                  <div 
-                    key={video.id} 
-                    onClick={() => {
-                      setCurrentVideo(video);
-                      setSourceType('STREAM');
-                    }}
-                    className={`group relative p-3 border transition-all cursor-pointer
-                      ${isActive 
-                        ? 'border-red-500/50 bg-red-900/10' 
-                        : 'border-white/5 hover:border-white/20 hover:bg-white/5'
-                      }`}
-                  >
-                    <div className="flex gap-3">
-                      <div className="relative w-20 h-14 bg-gray-800 flex-shrink-0 overflow-hidden">
-                        <img 
-                          src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`}
-                          alt={video.title}
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center min-w-0">
-                         <span className={`text-xs font-bold truncate transition-colors ${isActive ? 'text-red-400' : 'text-gray-300 group-hover:text-white'}`}>
-                           {video.title}
-                         </span>
-                         <span className="text-[10px] text-gray-600 font-mono mt-1">
-                           {video.duration} // ARCHIVE_0{i+1}
-                         </span>
-                      </div>
+          {/* Block 2: Scrollable Playlist & Footer */}
+          <div className="flex-1 overflow-y-auto p-6 pt-4 flex flex-col gap-6">
+            <div className="flex-shrink-0">
+                <h3 className="text-[10px] uppercase text-gray-500 tracking-widest mb-4 border-b border-gray-800 pb-2">
+                Next_Up.queue
+                </h3>
+                <div className="flex flex-col gap-3">
+                {PLAYLIST.map((video, i) => {
+                    const isActive = currentVideo.id === video.id;
+                    return (
+                    <div 
+                        key={video.id} 
+                        onClick={() => {
+                        setCurrentVideo(video);
+                        setSourceType('STREAM');
+                        }}
+                        className={`group relative p-3 border transition-all cursor-pointer
+                        ${isActive 
+                            ? 'border-red-500/50 bg-red-900/10' 
+                            : 'border-white/5 hover:border-white/20 hover:bg-white/5'
+                        }`}
+                    >
+                        <div className="flex gap-3">
+                        <div className="relative w-20 h-14 bg-gray-800 flex-shrink-0 overflow-hidden">
+                            <img 
+                            src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`}
+                            alt={video.title}
+                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                            />
+                        </div>
+                        <div className="flex flex-col justify-center min-w-0">
+                            <span className={`text-xs font-bold truncate transition-colors ${isActive ? 'text-red-400' : 'text-gray-300 group-hover:text-white'}`}>
+                            {video.title}
+                            </span>
+                            <span className="text-[10px] text-gray-600 font-mono mt-1">
+                            {video.duration} // ARCHIVE_0{i+1}
+                            </span>
+                        </div>
+                        </div>
+                        {/* Hover Accent */}
+                        <div className={`absolute left-0 top-0 bottom-0 w-0.5 transition-opacity ${isActive ? 'bg-red-500 opacity-100' : 'bg-white opacity-0 group-hover:opacity-100'}`}></div>
                     </div>
-                    {/* Hover Accent */}
-                    <div className={`absolute left-0 top-0 bottom-0 w-0.5 transition-opacity ${isActive ? 'bg-red-500 opacity-100' : 'bg-white opacity-0 group-hover:opacity-100'}`}></div>
-                  </div>
-                );
-              })}
+                    );
+                })}
+                </div>
             </div>
-          </div>
 
-          {/* Block 3: Footer Status */}
-          <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
-             <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
-               <div className="flex flex-col gap-1">
-                 <span>LAT: 34.0522 N</span>
-                 <span>LON: 118.2437 W</span>
-               </div>
-               <div className="text-right">
-                 <span className="block text-green-500 animate-pulse">● ONLINE</span>
-                 <span>SERVER: US-WEST-2</span>
-               </div>
-             </div>
+            {/* Block 3: Footer Status */}
+            <div className="mt-auto pt-6 border-t border-white/10 flex-shrink-0">
+                <div className="flex justify-between items-end text-[10px] font-mono text-gray-500">
+                <div className="flex flex-col gap-1">
+                    <span>LAT: 34.0522 N</span>
+                    <span>LON: 118.2437 W</span>
+                </div>
+                <div className="text-right">
+                    <span className="block text-green-500 animate-pulse">● ONLINE</span>
+                    <span>SERVER: US-WEST-2</span>
+                </div>
+                </div>
+            </div>
           </div>
 
         </div>
